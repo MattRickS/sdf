@@ -1,19 +1,17 @@
 #include <iostream>
 
 #include "buffer.hpp"
+#include "camera.hpp"
+#include "matrix4.hpp"
+#include "scene.hpp"
 
 int main(int argc, char const *argv[])
 {
-    Buffer b(3, 3);
-    b.arr[0] = float4(1.0f, 0.0f, 0.0f, 1.0f);
-    b.arr[4] = float4(0.0f, 1.0f, 0.0f, 1.0f);
-    b.arr[8] = float4(0.0f, 0.0f, 1.0f, 1.0f);
-    b.arr[2] = float4(0.1f, 0.1f, 0.1f, 1.0f);
-    b.arr[6] = float4(0.5f, 0.5f, 0.5f, 1.0f);
-    b.toPPM("demo.ppm");
-
-    Buffer b2 = Buffer::fromPPM("demo.ppm");
-    b2.toPPM("demo2.ppm");
-
+    Scene scene{};
+    matrix4 camTransform = matrix4::identity();
+    Camera camera(camTransform, 10.0f, 23.0f);
+    Buffer buffer(100, 100);
+    scene.render(camera, buffer, 10.0f);
+    buffer.toPPM("sdf.ppm");
     return 0;
 }

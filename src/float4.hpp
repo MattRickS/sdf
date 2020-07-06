@@ -55,6 +55,32 @@ public:
         w += rhs.w;
     }
 
+    float4 operator-(const float rhs)
+    {
+        return float4(x - rhs, y - rhs, z - rhs, w - rhs);
+    }
+
+    float4 operator-(const float4 &rhs)
+    {
+        return float4(x - rhs.x, y - rhs.y, z - rhs.z, w - rhs.w);
+    }
+
+    void operator-=(const float rhs)
+    {
+        x -= rhs;
+        y -= rhs;
+        z -= rhs;
+        w -= rhs;
+    }
+
+    void operator-=(const float4 &rhs)
+    {
+        x -= rhs.x;
+        y -= rhs.y;
+        z -= rhs.z;
+        w -= rhs.w;
+    }
+
     float4 operator*(const float rhs)
     {
         return float4(x * rhs, y * rhs, z * rhs, w * rhs);
@@ -80,6 +106,32 @@ public:
         z *= rhs.z;
         w *= rhs.w;
     }
+
+    float4 operator/(const float rhs) const
+    {
+        return float4(x / rhs, y / rhs, z / rhs, w / rhs);
+    }
+
+    float4 operator/(const float4 &rhs)
+    {
+        return float4(x / rhs.x, y / rhs.y, z / rhs.z, w / rhs.w);
+    }
+
+    void operator/=(const float rhs)
+    {
+        x /= rhs;
+        y /= rhs;
+        z /= rhs;
+        w /= rhs;
+    }
+
+    void operator/=(const float4 &rhs)
+    {
+        x /= rhs.x;
+        y /= rhs.y;
+        z /= rhs.z;
+        w /= rhs.w;
+    }
 };
 
 inline float4 clamp(const float4 &lhs, float _min, float _max)
@@ -98,6 +150,20 @@ inline float4 pow(const float4 &lhs, float rhs)
         powf(lhs.y, rhs),
         powf(lhs.z, rhs),
         powf(lhs.w, rhs));
+}
+
+inline float length(const float4 &a)
+{
+    return sqrtf(
+        a.x * a.x +
+        a.y * a.y +
+        a.z * a.z +
+        a.w * a.w);
+}
+
+inline float4 normalize(const float4 &a)
+{
+    return a / length(a);
 }
 
 inline std::ostream &operator<<(std::ostream &_stream, float4 const &f)

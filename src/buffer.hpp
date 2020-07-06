@@ -1,3 +1,4 @@
+#pragma once
 #include "float4.hpp"
 
 class Buffer
@@ -17,6 +18,7 @@ public:
     }
 
     float4 &pixel(int x, int y) { return arr[x + sizeX * y]; }
+    void setPixel(int x, int y, float4 &colour) { arr[x + sizeX * y] = colour; }
 
     void toPPM(const char *path, float gamma = 2.2f);
     static Buffer fromPPM(const char *path, float gamma = 2.2f);
