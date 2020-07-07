@@ -1,66 +1,69 @@
 #pragma once
 
-class matrix4
+namespace vec
 {
-public:
-    float arr[16];
-
-    inline float &operator[](int i)
+    class mat4
     {
-        return arr[i];
-    }
+    public:
+        float arr[16];
 
-    inline const float operator[](int i) const
-    {
-        return arr[i];
-    }
+        inline float &operator[](int i)
+        {
+            return arr[i];
+        }
 
-    float4 position()
-    {
-        return float4(arr[12], arr[13], arr[14], arr[15]);
-    }
+        inline const float operator[](int i) const
+        {
+            return arr[i];
+        }
 
-    float4 forward()
-    {
-        return float4(arr[8], arr[9], arr[10], arr[11]);
-    }
+        float4 position()
+        {
+            return float4(arr[12], arr[13], arr[14], arr[15]);
+        }
 
-    float4 up()
-    {
-        return float4(arr[4], arr[5], arr[6], arr[7]);
-    }
+        float4 forward()
+        {
+            return float4(arr[8], arr[9], arr[10], arr[11]);
+        }
 
-    float4 right()
-    {
-        return float4(arr[0], arr[1], arr[2], arr[3]);
-    }
+        float4 up()
+        {
+            return float4(arr[4], arr[5], arr[6], arr[7]);
+        }
 
-    static matrix4 identity()
-    {
-        matrix4 m;
-        m.arr[0] = 1.0f;
-        m.arr[1] = 0.0f;
-        m.arr[2] = 0.0f;
-        m.arr[3] = 0.0f;
-        m.arr[4] = 0.0f;
-        m.arr[5] = 1.0f;
-        m.arr[6] = 0.0f;
-        m.arr[7] = 0.0f;
-        m.arr[8] = 0.0f;
-        m.arr[9] = 0.0f;
-        m.arr[10] = 1.0f;
-        m.arr[11] = 0.0f;
-        m.arr[12] = 0.0f;
-        m.arr[13] = 0.0f;
-        m.arr[14] = 0.0f;
-        m.arr[15] = 1.0f;
-        return m;
-    }
-};
+        float4 right()
+        {
+            return float4(arr[0], arr[1], arr[2], arr[3]);
+        }
 
-inline matrix4 inverse(const matrix4 &m)
+        static mat4 identity()
+        {
+            mat4 m;
+            m.arr[0] = 1.0f;
+            m.arr[1] = 0.0f;
+            m.arr[2] = 0.0f;
+            m.arr[3] = 0.0f;
+            m.arr[4] = 0.0f;
+            m.arr[5] = 1.0f;
+            m.arr[6] = 0.0f;
+            m.arr[7] = 0.0f;
+            m.arr[8] = 0.0f;
+            m.arr[9] = 0.0f;
+            m.arr[10] = 1.0f;
+            m.arr[11] = 0.0f;
+            m.arr[12] = 0.0f;
+            m.arr[13] = 0.0f;
+            m.arr[14] = 0.0f;
+            m.arr[15] = 1.0f;
+            return m;
+        }
+    };
+} // namespace vec
+
+inline vec::mat4 inverse(const vec::mat4 &m)
 {
-    matrix4 inv;
+    vec::mat4 inv;
     float det;
     int i;
 

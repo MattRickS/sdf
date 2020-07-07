@@ -1,20 +1,23 @@
 #pragma once
-#include "float4.hpp"
+#include <vec/float4.hpp>
 
-class Ray
+namespace scene
 {
-public:
-    float4 origin;
-    float4 direction;
-
-    Ray(float4 origin, float4 direction)
+    class Ray
     {
-        this->origin = origin;
-        this->direction = direction;
-    }
+    public:
+        vec::float4 origin;
+        vec::float4 direction;
 
-    void advance(float distance)
-    {
-        origin += direction * distance;
-    }
-};
+        Ray(vec::float4 origin, vec::float4 direction)
+        {
+            this->origin = origin;
+            this->direction = direction;
+        }
+
+        void advance(float distance)
+        {
+            origin += direction * distance;
+        }
+    };
+} // namespace scene

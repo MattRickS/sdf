@@ -1,6 +1,9 @@
-#include "float4.hpp"
+#include <vec/float4.hpp>
 
-float sphere(float4 center, float radius)
+namespace sdf
 {
-    return length(center) - radius;
-}
+    float sphere(vec::float4 pos, float radius)
+    {
+        return length(pos) - radius;
+    }
+} // namespace sdf

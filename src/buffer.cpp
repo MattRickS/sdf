@@ -1,8 +1,7 @@
-#include "buffer.hpp"
-#include "float4.hpp"
-
 #include <fstream>
 #include <iostream>
+
+#include <buffer.hpp>
 
 void Buffer::toPPM(const char *path, float gamma) // gamma=2.2f
 {
@@ -15,9 +14,9 @@ void Buffer::toPPM(const char *path, float gamma) // gamma=2.2f
     {
         for (int w = 0; w < sizeX; w++)
         {
-            float4 color = pixel(w, h);
-            float4 colorCorrect = pow(color, 1.0f / gamma);
-            float4 clamped = clamp(colorCorrect, 0.0f, 1.0f) * 255.0f;
+            vec::float4 color = pixel(w, h);
+            vec::float4 colorCorrect = pow(color, 1.0f / gamma);
+            vec::float4 clamped = clamp(colorCorrect, 0.0f, 1.0f) * 255.0f;
 
             for (int i = 0; i < 3; i++)
             {
@@ -54,7 +53,7 @@ Buffer Buffer::fromPPM(const char *path, float gamma) // gamma=2.2f
         for (int w = 0; w < width; w++)
         {
             f >> r >> g >> b;
-            float4 px(
+            vec::float4 px(
                 std::min(r, max_) / 255.0f,
                 std::min(g, max_) / 255.0f,
                 std::min(b, max_) / 255.0f,
