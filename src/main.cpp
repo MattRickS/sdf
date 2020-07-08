@@ -3,17 +3,20 @@
 #include <render/buffer.hpp>
 #include <render/camera.hpp>
 #include <render/renderer.hpp>
+#include <sdf/op.hpp>
 #include <sdf/shapes.hpp>
 #include <vec/mat4.hpp>
 #include <vec/vec3.hpp>
 
 float distance(vec::vec3 &pos)
 {
-    // return sdf::sphere(vec::vec3(0.0f, 0.0f, 8.0f) - pos, 5.0f);
-    // TODO: Not rendering right, is it camera distortion or is the box algorithm wrong?
-    return sdf::box(
-        vec::vec3(0.0f, 0.0f, 5.0f) - pos,
-        vec::vec3(3.0f, 3.0f, 3.0f));
+    // return sdf::plane(pos, vec::vec3(0.0f, 1.0f, 0.0f), 0.0f);
+    vec::mat4 m = vec::mat4::identity();
+    m.setPosition(vec::vec3(0.0f, 0.0f, 8.0f));
+    return sdf::sphere(sdf::transform(pos, m), 5.0f);
+    // return sdf::box(
+    //     vec::vec3(0.0f, 0.0f, 5.0f) - pos,
+    //     vec::vec3(3.0f, 3.0f, 3.0f));
 }
 
 int main(int argc, char const *argv[])

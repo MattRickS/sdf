@@ -25,6 +25,13 @@ namespace vec
             return arr[i];
         }
 
+        void setPosition(vec::vec3 pos)
+        {
+            arr[12] = pos.x;
+            arr[13] = pos.y;
+            arr[14] = pos.z;
+        }
+
         vec::vec3 position() const
         {
             return vec::vec3(arr[12], arr[13], arr[14]);
