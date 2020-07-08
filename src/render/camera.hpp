@@ -20,10 +20,8 @@ namespace render
         render::Ray ray(float u, float v)
         {
             float ratio = focal / haperture;
-            vec::vec3 origin = transform.position();
-            vec::vec3 direction = normalize(
-                transform.forward() * ratio + transform.right() * u + transform.up() * v);
-            return render::Ray(origin, direction);
+            vec::vec3 offset = transform.forward() * ratio + transform.right() * u + transform.up() * v;
+            return render::Ray(transform.position() + offset, normalize(offset));
         }
     };
 } // namespace render
