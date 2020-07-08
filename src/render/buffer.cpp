@@ -14,9 +14,9 @@ void render::Buffer::toPPM(const char *path, float gamma) // gamma=2.2f
     {
         for (int w = 0; w < sizeX; w++)
         {
-            vec::float4 color = pixel(w, h);
-            vec::float4 colorCorrect = pow(color, 1.0f / gamma);
-            vec::float4 clamped = clamp(colorCorrect, 0.0f, 1.0f) * 255.0f;
+            vec::vec4 color = pixel(w, h);
+            vec::vec4 colorCorrect = pow(color, 1.0f / gamma);
+            vec::vec4 clamped = clamp(colorCorrect, 0.0f, 1.0f) * 255.0f;
 
             for (int i = 0; i < 3; i++)
             {
@@ -53,7 +53,7 @@ render::Buffer render::Buffer::fromPPM(const char *path, float gamma) // gamma=2
         for (int w = 0; w < width; w++)
         {
             f >> r >> g >> b;
-            vec::float4 px(
+            vec::vec4 px(
                 std::min(r, max_) / 255.0f,
                 std::min(g, max_) / 255.0f,
                 std::min(b, max_) / 255.0f,

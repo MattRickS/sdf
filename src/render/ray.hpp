@@ -1,15 +1,15 @@
 #pragma once
-#include <vec/float4.hpp>
+#include <vec/vec3.hpp>
 
 namespace render
 {
     class Ray
     {
     public:
-        vec::float4 origin;
-        vec::float4 direction;
+        vec::vec3 origin;
+        vec::vec3 direction;
 
-        Ray(vec::float4 origin, vec::float4 direction)
+        Ray(vec::vec3 origin, vec::vec3 direction)
         {
             this->origin = origin;
             this->direction = direction;

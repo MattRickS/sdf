@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vec/vec4.hpp>
+
 namespace vec
 {
     class mat4
@@ -17,24 +19,24 @@ namespace vec
             return arr[i];
         }
 
-        float4 position()
+        vec::vec3 position()
         {
-            return float4(arr[12], arr[13], arr[14], arr[15]);
+            return vec::vec3(arr[12], arr[13], arr[14]);
         }
 
-        float4 forward()
+        vec::vec3 forward()
         {
-            return float4(arr[8], arr[9], arr[10], arr[11]);
+            return vec::vec3(arr[8], arr[9], arr[10]);
         }
 
-        float4 up()
+        vec::vec3 up()
         {
-            return float4(arr[4], arr[5], arr[6], arr[7]);
+            return vec::vec3(arr[4], arr[5], arr[6]);
         }
 
-        float4 right()
+        vec::vec3 right()
         {
-            return float4(arr[0], arr[1], arr[2], arr[3]);
+            return vec::vec3(arr[0], arr[1], arr[2]);
         }
 
         static mat4 identity()

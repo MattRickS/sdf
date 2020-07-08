@@ -1,6 +1,6 @@
 #pragma once
 #include <render/ray.hpp>
-#include <vec/float4.hpp>
+#include <vec/vec3.hpp>
 #include <vec/mat4.hpp>
 
 namespace render
@@ -20,8 +20,8 @@ namespace render
         render::Ray ray(float u, float v)
         {
             float ratio = focal / haperture;
-            vec::float4 origin = transform.position();
-            vec::float4 direction = normalize(
+            vec::vec3 origin = transform.position();
+            vec::vec3 direction = normalize(
                 transform.forward() * ratio + transform.right() * u + transform.up() * v);
             return render::Ray(origin, direction);
         }
