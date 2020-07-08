@@ -1,9 +1,9 @@
 #include <fstream>
 #include <iostream>
 
-#include <buffer.hpp>
+#include <render/buffer.hpp>
 
-void Buffer::toPPM(const char *path, float gamma) // gamma=2.2f
+void render::Buffer::toPPM(const char *path, float gamma) // gamma=2.2f
 {
     std::fstream f(path, std::ios::out);
 
@@ -29,7 +29,7 @@ void Buffer::toPPM(const char *path, float gamma) // gamma=2.2f
     f.close();
 }
 
-Buffer Buffer::fromPPM(const char *path, float gamma) // gamma=2.2f
+render::Buffer render::Buffer::fromPPM(const char *path, float gamma) // gamma=2.2f
 {
     std::fstream f(path, std::ios::in);
 
@@ -45,7 +45,7 @@ Buffer Buffer::fromPPM(const char *path, float gamma) // gamma=2.2f
     int width, height, max_;
     f >> width >> height >> max_;
 
-    Buffer buffer(width, height);
+    render::Buffer buffer(width, height);
 
     int r, g, b;
     for (int h = height - 1; h >= 0; h--)

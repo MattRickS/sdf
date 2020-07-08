@@ -1,7 +1,7 @@
 #include <render/scene.hpp>
 #include <sdf/shapes.hpp>
 
-void render::Scene::render(render::Camera &camera, ::Buffer &buffer, float maxDistance)
+void render::Scene::render(render::Camera &camera, render::Buffer &buffer, float maxDistance)
 {
     for (int y = 0; y < buffer.sizeY; y++)
     {
