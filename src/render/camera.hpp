@@ -1,9 +1,9 @@
 #pragma once
-#include <scene/ray.hpp>
+#include <render/ray.hpp>
 #include <vec/float4.hpp>
 #include <vec/mat4.hpp>
 
-namespace scene
+namespace render
 {
     class Camera
     {
@@ -17,13 +17,13 @@ namespace scene
             this->transform = transform;
         }
 
-        scene::Ray ray(float u, float v)
+        render::Ray ray(float u, float v)
         {
             float ratio = focal / haperture;
             vec::float4 origin = transform.position();
             vec::float4 direction = normalize(
                 transform.forward() * ratio + transform.right() * u + transform.up() * v);
-            return scene::Ray(origin, direction);
+            return render::Ray(origin, direction);
         }
     };
-} // namespace scene
+} // namespace render

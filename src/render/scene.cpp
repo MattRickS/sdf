@@ -1,7 +1,7 @@
-#include <scene/scene.hpp>
+#include <render/scene.hpp>
 #include <sdf/shapes.hpp>
 
-void scene::Scene::render(scene::Camera &camera, ::Buffer &buffer, float maxDistance)
+void render::Scene::render(render::Camera &camera, ::Buffer &buffer, float maxDistance)
 {
     for (int y = 0; y < buffer.sizeY; y++)
     {
@@ -10,14 +10,14 @@ void scene::Scene::render(scene::Camera &camera, ::Buffer &buffer, float maxDist
             // Fire from pixel center, uv range between -0.5 and 0.5
             float u = (x + 0.5f) / buffer.sizeX - 0.5f;
             float v = (y + 0.5f) / buffer.sizeY - 0.5f;
-            scene::Ray ray = camera.ray(u, v);
+            render::Ray ray = camera.ray(u, v);
             vec::float4 colour = process(ray, maxDistance);
             buffer.setPixel(x, y, colour);
         }
     }
 }
 
-vec::float4 scene::Scene::process(scene::Ray &ray, float maxDistance)
+vec::float4 render::Scene::process(render::Ray &ray, float maxDistance)
 {
     float d, totalDistance = 0.0;
     do
@@ -29,7 +29,7 @@ vec::float4 scene::Scene::process(scene::Ray &ray, float maxDistance)
     return vec::float4(1.0f - totalDistance / maxDistance);
 }
 
-float scene::Scene::distance(vec::float4 &pos)
+float render::Scene::distance(vec::float4 &pos)
 {
     return sdf::sphere(vec::float4(0.0f, 0.0f, 5.0f, 1.0f) - pos, 3.0f);
 }

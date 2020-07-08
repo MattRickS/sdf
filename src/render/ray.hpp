@@ -1,7 +1,7 @@
 #pragma once
 #include <vec/float4.hpp>
 
-namespace scene
+namespace render
 {
     class Ray
     {
@@ -20,4 +20,4 @@ namespace scene
             origin += direction * distance;
         }
     };
-} // namespace scene
+} // namespace render
