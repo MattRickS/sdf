@@ -1,4 +1,4 @@
-#include <render/scene.hpp>
+#include <render/renderer.hpp>
 #include <sdf/shapes.hpp>
 
 void render::Renderer::render(render::Camera &camera, render::Buffer &buffer, float maxDistance)

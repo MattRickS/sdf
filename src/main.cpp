@@ -2,7 +2,7 @@
 
 #include <render/buffer.hpp>
 #include <render/camera.hpp>
-#include <render/scene.hpp>
+#include <render/renderer.hpp>
 #include <vec/mat4.hpp>
 
 int main(int argc, char const *argv[])
