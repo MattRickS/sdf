@@ -7,13 +7,21 @@
 
 namespace render
 {
+    typedef float distanceFunc(vec::vec3 &pos);
+
     class Renderer
     {
     public:
-        float threshold{0.0001f};
+        distanceFunc *dfunc;
+        float threshold;
+
+        Renderer(distanceFunc *func, float threshold = 0.0001f) : threshold(threshold)
+        {
+            this->dfunc = func;
+        }
+
         // TODO: A vector of SDF functions - must define an interface
         void render(render::Camera &camera, render::Buffer &buffer, float maxDistance);
         vec::vec4 process(render::Ray &ray, float maxDistance);
-        float distance(vec::vec3 &pos);
     };
 } // namespace render
