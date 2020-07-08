@@ -7,7 +7,13 @@ namespace vec
     class mat4
     {
     public:
-        float arr[16];
+        union
+        {
+            float arr[16];
+            vec::vec4 rows[4];
+        };
+
+        mat4() {}
 
         inline float &operator[](int i)
         {
@@ -19,22 +25,22 @@ namespace vec
             return arr[i];
         }
 
-        vec::vec3 position()
+        vec::vec3 position() const
         {
             return vec::vec3(arr[12], arr[13], arr[14]);
         }
 
-        vec::vec3 forward()
+        vec::vec3 forward() const
         {
             return vec::vec3(arr[8], arr[9], arr[10]);
         }
 
-        vec::vec3 up()
+        vec::vec3 up() const
         {
             return vec::vec3(arr[4], arr[5], arr[6]);
         }
 
-        vec::vec3 right()
+        vec::vec3 right() const
         {
             return vec::vec3(arr[0], arr[1], arr[2]);
         }
@@ -42,28 +48,25 @@ namespace vec
         static mat4 identity()
         {
             mat4 m;
-            m.arr[0] = 1.0f;
-            m.arr[1] = 0.0f;
-            m.arr[2] = 0.0f;
-            m.arr[3] = 0.0f;
-            m.arr[4] = 0.0f;
-            m.arr[5] = 1.0f;
-            m.arr[6] = 0.0f;
-            m.arr[7] = 0.0f;
-            m.arr[8] = 0.0f;
-            m.arr[9] = 0.0f;
-            m.arr[10] = 1.0f;
-            m.arr[11] = 0.0f;
-            m.arr[12] = 0.0f;
-            m.arr[13] = 0.0f;
-            m.arr[14] = 0.0f;
-            m.arr[15] = 1.0f;
+            m.rows[0] = vec::vec4(1.0f, 0.0f, 0.0f, 0.0f);
+            m.rows[1] = vec::vec4(0.0f, 1.0f, 0.0f, 0.0f);
+            m.rows[2] = vec::vec4(0.0f, 0.0f, 1.0f, 0.0f);
+            m.rows[3] = vec::vec4(0.0f, 0.0f, 0.0f, 1.0f);
             return m;
         }
     };
 } // namespace vec
 
-inline vec::mat4 inverse(const vec::mat4 &m)
+inline vec::vec3 operator*(const vec::mat4 &m, const vec::vec3 v)
+{
+    vec::vec4 v4(v, 0.0f);
+    return m.position() + vec::vec3(
+                              dot(v4, m.rows[0]),
+                              dot(v4, m.rows[1]),
+                              dot(v4, m.rows[2]));
+}
+
+inline vec::mat4 invert(const vec::mat4 &m)
 {
     vec::mat4 inv;
     float det;

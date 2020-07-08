@@ -112,6 +112,16 @@ inline vec::vec3 abs(const vec::vec3 &lhs)
     return vec::vec3(std::abs(lhs.x), std::abs(lhs.y), std::abs(lhs.z));
 }
 
+inline vec::vec3 mod(const vec::vec3 &lhs, const float rhs)
+{
+    return vec::vec3(fmod(lhs.x, rhs), fmod(lhs.y, rhs), fmod(lhs.z, rhs));
+}
+
+inline vec::vec3 mod(const vec::vec3 &lhs, const vec::vec3 rhs)
+{
+    return vec::vec3(fmod(lhs.x, rhs.x), fmod(lhs.y, rhs.y), fmod(lhs.z, rhs.z));
+}
+
 inline vec::vec3 pow(const vec::vec3 &lhs, float rhs)
 {
     return vec::vec3(powf(lhs.x, rhs), powf(lhs.y, rhs), powf(lhs.z, rhs));

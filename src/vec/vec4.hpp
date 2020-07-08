@@ -122,6 +122,24 @@ inline vec::vec4 abs(const vec::vec4 &lhs)
     return vec::vec4(std::abs(lhs.x), std::abs(lhs.y), std::abs(lhs.z), std::abs(lhs.w));
 }
 
+inline vec::vec4 mod(const vec::vec4 &lhs, const float rhs)
+{
+    return vec::vec4(
+        fmod(lhs.x, rhs),
+        fmod(lhs.y, rhs),
+        fmod(lhs.z, rhs),
+        fmod(lhs.w, rhs));
+}
+
+inline vec::vec4 mod(const vec::vec4 &lhs, const vec::vec4 rhs)
+{
+    return vec::vec4(
+        fmod(lhs.x, rhs.x),
+        fmod(lhs.y, rhs.y),
+        fmod(lhs.z, rhs.z),
+        fmod(lhs.w, rhs.w));
+}
+
 inline vec::vec4 pow(const vec::vec4 &lhs, float rhs)
 {
     return vec::vec4(powf(lhs.x, rhs), powf(lhs.y, rhs), powf(lhs.z, rhs), powf(lhs.w, rhs));
