@@ -11,8 +11,8 @@ int main(int argc, char const *argv[])
     render::Camera camera(camTransform, 10.0f, 23.0f);
     render::Buffer buffer(100, 100);
 
-    render::Scene s;
-    s.render(camera, buffer, 10.0f);
+    render::Renderer renderer;
+    renderer.render(camera, buffer, 10.0f);
     buffer.toPPM("sdf.ppm");
 
     return 0;

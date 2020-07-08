@@ -6,7 +6,7 @@
 
 namespace render
 {
-    class Scene
+    class Renderer
     {
     public:
         float threshold{0.0001f};

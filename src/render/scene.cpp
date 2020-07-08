@@ -1,7 +1,7 @@
 #include <render/scene.hpp>
 #include <sdf/shapes.hpp>
 
-void render::Scene::render(render::Camera &camera, render::Buffer &buffer, float maxDistance)
+void render::Renderer::render(render::Camera &camera, render::Buffer &buffer, float maxDistance)
 {
     for (int y = 0; y < buffer.sizeY; y++)
     {
@@ -17,7 +17,7 @@ void render::Scene::render(render::Camera &camera, render::Buffer &buffer, float
     }
 }
 
-vec::float4 render::Scene::process(render::Ray &ray, float maxDistance)
+vec::float4 render::Renderer::process(render::Ray &ray, float maxDistance)
 {
     float d, totalDistance = 0.0;
     do
@@ -29,7 +29,7 @@ vec::float4 render::Scene::process(render::Ray &ray, float maxDistance)
     return vec::float4(1.0f - totalDistance / maxDistance);
 }
 
-float render::Scene::distance(vec::float4 &pos)
+float render::Renderer::distance(vec::float4 &pos)
 {
     return sdf::sphere(vec::float4(0.0f, 0.0f, 5.0f, 1.0f) - pos, 3.0f);
 }
