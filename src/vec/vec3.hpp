@@ -87,6 +87,11 @@ inline vec::vec3 operator+(const vec::vec3 &lhs, const float &rhs)
     return vec::vec3(lhs.x + rhs, lhs.y + rhs, lhs.z + rhs);
 }
 
+inline vec::vec3 operator-(const vec::vec3 &lhs)
+{
+    return vec::vec3(-lhs.x, -lhs.y, -lhs.z);
+}
+
 inline vec::vec3 operator-(const vec::vec3 &lhs, const vec::vec3 &rhs)
 {
     return vec::vec3(lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z);
@@ -135,6 +140,14 @@ inline float dot(const vec::vec3 &lhs)
 inline float dot(const vec::vec3 &lhs, const vec::vec3 &rhs)
 {
     return lhs.x * rhs.x + lhs.y * rhs.y + lhs.z * rhs.z;
+}
+
+inline vec::vec3 cross(const vec::vec3 &lhs, const vec::vec3 &rhs)
+{
+    return vec::vec3(
+        lhs.y * rhs.z - lhs.z * rhs.y,
+        lhs.z * rhs.x - lhs.x * rhs.z,
+        lhs.x * rhs.y - lhs.y * rhs.x);
 }
 
 inline float length(const vec::vec3 &lhs)

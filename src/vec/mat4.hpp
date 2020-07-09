@@ -66,6 +66,20 @@ namespace vec
             rows[2] = vec::vec4(-sy, cy * sx, cy * cx, 0.0f);
         }
 
+        static mat4 targetted(vec::vec3 pos, vec::vec3 lookAt, vec::vec3 up)
+        {
+            vec::vec3 forward = normalize(lookAt - pos);
+            vec::vec3 right = -cross(forward, up);
+            vec::vec3 camUp = cross(forward, right);
+
+            vec::mat4 m;
+            m.rows[0] = vec::vec4(right, 0.0f);
+            m.rows[1] = vec::vec4(camUp, 0.0f);
+            m.rows[2] = vec::vec4(forward, 0.0f);
+            m.rows[3] = vec::vec4(pos, 1.0f);
+            return m;
+        }
+
         static mat4 rotated(vec::vec3 rot)
         {
             mat4 m = mat4::identity();
