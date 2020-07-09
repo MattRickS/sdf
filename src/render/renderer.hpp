@@ -8,6 +8,12 @@
 
 namespace render
 {
+    enum RenderFit
+    {
+        KeepRatio,
+        Stretch,
+    };
+
     class Renderer
     {
     public:
@@ -20,7 +26,7 @@ namespace render
         }
 
         // TODO: A vector of SDF functions - must define an interface
-        void render(render::Camera &camera, render::Buffer &buffer, float maxDistance);
+        void render(render::Camera &camera, render::Buffer &buffer, float maxDistance, RenderFit fit = RenderFit::KeepRatio);
         vec::vec4 process(render::Ray &ray, float maxDistance);
     };
 } // namespace render

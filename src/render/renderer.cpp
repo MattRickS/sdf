@@ -1,14 +1,29 @@
 #include <render/renderer.hpp>
 
-void render::Renderer::render(render::Camera &camera, render::Buffer &buffer, float maxDistance)
+void render::Renderer::render(render::Camera &camera, render::Buffer &buffer, float maxDistance, render::RenderFit fit) // fit = KeepRatio
 {
+    // Fit the uv range based on buffer size.
+    float sx = 1.0f, sy = 1.0f;
+    if (fit == render::RenderFit::KeepRatio)
+    {
+        float verticalScaleFactor = camera.aspect() / ((float)buffer.sizeX / buffer.sizeY);
+        if (verticalScaleFactor > 1)
+        {
+            sx = 1.0f / verticalScaleFactor;
+        }
+        else
+        {
+            sy = verticalScaleFactor;
+        }
+    }
+
     for (int y = 0; y < buffer.sizeY; y++)
     {
         for (int x = 0; x < buffer.sizeX; x++)
         {
-            // Fire from pixel center, uv range between -0.5 and 0.5
-            float u = 2 * (x + 0.5f) / buffer.sizeX - 1.0f;
-            float v = 2 * (y + 0.5f) / buffer.sizeY - 1.0f;
+            // Fire from pixel center, uv range between -1 and 1
+            float u = (2 * (x + 0.5f) / buffer.sizeX - 1.0f) * sx;
+            float v = (2 * (y + 0.5f) / buffer.sizeY - 1.0f) * sy;
             render::Ray ray = camera.ray(u, v);
             vec::vec4 colour = process(ray, maxDistance);
             buffer.setPixel(x, y, colour);

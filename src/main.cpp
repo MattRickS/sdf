@@ -26,7 +26,7 @@ int main(int argc, char const *argv[])
     vec::mat4 camTransform = vec::mat4::transformed(vec::vec3(0.0f, 0.0f, -7.0f));
     // 35mm sensor
     render::Camera camera(camTransform, 50.0f, 36.0f, 24.0f);
-    render::Buffer buffer(150, 100);
+    render::Buffer buffer(300, 100);
 
     render::Renderer renderer(distance);
     renderer.render(camera, buffer, 30.0f);
