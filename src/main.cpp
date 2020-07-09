@@ -10,22 +10,18 @@
 
 float distance(const vec::vec3 &pos)
 {
-    // return sdf::plane(pos, vec::vec3(0.0f, 1.0f, 0.0f), 0.0f);
-    vec::mat4 m = vec::mat4::transformed(vec::vec3(0.0f, 0.0f, 8.0f));
-    return sdf::sphere(sdf::transform(pos, m), 5.0f);
-    // return sdf::box(
-    //     sdf::transform(pos, m),
-    //     vec::vec3(3.0f, 3.0f, 3.0f));
+    vec::mat4 m = vec::mat4::transformed(vec::vec3(0.0f, 0.0f, 7.0f), vec::vec3(0.0f, 0.0f, 45.0f));
+    return sdf::box(sdf::repeat(sdf::transform(pos, m), vec::vec3(7.0f, 7.0f, 100.0f)), vec::vec3(3.0f, 3.0f, 3.0f));
 }
 
 int main(int argc, char const *argv[])
 {
     vec::mat4 camTransform = vec::mat4::identity();
     render::Camera camera(camTransform, 10.0f, 23.0f);
-    render::Buffer buffer(100, 100);
+    render::Buffer buffer(200, 200);
 
     render::Renderer renderer(distance);
-    renderer.render(camera, buffer, 10.0f);
+    renderer.render(camera, buffer, 15.0f);
     buffer.toPPM("sdf.ppm");
 
     return 0;

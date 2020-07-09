@@ -11,7 +11,7 @@ namespace sdf
     float box(vec::vec3 pos, vec::vec3 dimensions)
     {
         vec::vec3 distances = abs(pos) - dimensions;
-        return length(max(distances, 0.0f)) + std::min(std::max(distances.x, std::max(distances.y, distances.z)), 0.0f);
+        return std::max(std::max(distances.x, distances.y), distances.z);
     }
 
     float plane(vec::vec3 pos, vec::vec3 normal, float height)
