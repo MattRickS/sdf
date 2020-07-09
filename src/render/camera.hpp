@@ -10,18 +10,27 @@ namespace render
     public:
         vec::mat4 transform;
         float focal;
-        float haperture;
+        float sensorWidth;
+        float sensorHeight;
 
-        Camera(vec::mat4 &transform, float focal, float haperture) : focal(focal), haperture(haperture)
+        Camera(vec::mat4 &transform, float focal, float sensorWidth, float sensorHeight) : focal(focal), sensorWidth(sensorWidth), sensorHeight(sensorHeight)
         {
             this->transform = transform;
         }
 
+        float aspect()
+        {
+            return sensorWidth / sensorHeight;
+        }
+
         render::Ray ray(float u, float v)
         {
-            float ratio = focal / haperture;
-            vec::vec3 offset = transform.forward() * ratio + transform.right() * u + transform.up() * v;
-            return render::Ray(transform.position() + offset, normalize(offset));
+            vec::vec3 direction = normalize(
+                vec::vec3(
+                    transform.forward() * focal +
+                    transform.right() * sensorWidth * 0.5f * u +
+                    transform.up() * sensorHeight * 0.5f * v));
+            return render::Ray(transform.position(), direction);
         }
     };
 } // namespace render

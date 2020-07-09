@@ -54,13 +54,12 @@ namespace vec
 
         void setRotation(const vec::vec3 &eulerAngles)
         {
-            static const float deg2rad = M_PI / 180;
-            const float sz = sinf(eulerAngles.z * deg2rad);
-            const float cz = cosf(eulerAngles.z * deg2rad);
-            const float sy = sinf(eulerAngles.y * deg2rad);
-            const float cy = cosf(eulerAngles.y * deg2rad);
-            const float sx = sinf(eulerAngles.x * deg2rad);
-            const float cx = cosf(eulerAngles.x * deg2rad);
+            const float sz = sinf(eulerAngles.z);
+            const float cz = cosf(eulerAngles.z);
+            const float sy = sinf(eulerAngles.y);
+            const float cy = cosf(eulerAngles.y);
+            const float sx = sinf(eulerAngles.x);
+            const float cx = cosf(eulerAngles.x);
 
             rows[0] = vec::vec4(cz * cy, cz * sy * sx - sz * cx, cz * sy * cx + sz * sx, 0.0f);
             rows[1] = vec::vec4(sz * cy, sz * sy * sx + cz * cx, sz * sy * cx - cz * sx, 0.0f);
