@@ -1,3 +1,4 @@
+#pragma once
 #include <vec/vec3.hpp>
 
 namespace sdf

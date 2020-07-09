@@ -1,15 +1,12 @@
+#pragma once
 #include <vec/mat4.hpp>
 #include <vec/vec3.hpp>
 
 namespace sdf
 {
-    vec::vec3 transform(vec::vec3 pos, vec::mat4 xform)
-    {
-        return invert(xform) * pos;
-    }
+    typedef float distanceFunc(const vec::vec3 &pos);
 
-    vec::vec3 repeat(vec::vec3 pos, vec::vec3 offset)
-    {
-        return mod(pos + offset * 0.5f, offset) - offset * 0.5f;
-    }
+    vec::vec3 calcNormal(const vec::vec3 &pos, distanceFunc f, float offset = 0.0001);
+    vec::vec3 transform(const vec::vec3 pos, vec::mat4 xform);
+    vec::vec3 repeat(const vec::vec3 pos, vec::vec3 offset);
 } // namespace sdf

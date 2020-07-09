@@ -8,14 +8,13 @@
 #include <vec/mat4.hpp>
 #include <vec/vec3.hpp>
 
-float distance(vec::vec3 &pos)
+float distance(const vec::vec3 &pos)
 {
     // return sdf::plane(pos, vec::vec3(0.0f, 1.0f, 0.0f), 0.0f);
-    vec::mat4 m = vec::mat4::identity();
-    m.setPosition(vec::vec3(0.0f, 0.0f, 8.0f));
+    vec::mat4 m = vec::mat4::transformed(vec::vec3(0.0f, 0.0f, 8.0f));
     return sdf::sphere(sdf::transform(pos, m), 5.0f);
     // return sdf::box(
-    //     vec::vec3(0.0f, 0.0f, 5.0f) - pos,
+    //     sdf::transform(pos, m),
     //     vec::vec3(3.0f, 3.0f, 3.0f));
 }
 

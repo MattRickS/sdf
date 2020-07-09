@@ -25,13 +25,6 @@ namespace vec
             return arr[i];
         }
 
-        void setPosition(vec::vec3 pos)
-        {
-            arr[12] = pos.x;
-            arr[13] = pos.y;
-            arr[14] = pos.z;
-        }
-
         vec::vec3 position() const
         {
             return vec::vec3(arr[12], arr[13], arr[14]);
@@ -50,6 +43,42 @@ namespace vec
         vec::vec3 right() const
         {
             return vec::vec3(arr[0], arr[1], arr[2]);
+        }
+
+        void setPosition(vec::vec3 pos)
+        {
+            arr[12] = pos.x;
+            arr[13] = pos.y;
+            arr[14] = pos.z;
+        }
+
+        void setRotation(const vec::vec3 &eulerAngles)
+        {
+            const float sz = sinf(eulerAngles.z);
+            const float cz = cosf(eulerAngles.z);
+            const float sy = sinf(eulerAngles.y);
+            const float cy = cosf(eulerAngles.y);
+            const float sx = sinf(eulerAngles.x);
+            const float cx = cosf(eulerAngles.x);
+
+            rows[0] = vec::vec4(cz * cy, cz * sy * sx - sz * cx, cz * sy * cx + sz * sx, 0.0f);
+            rows[1] = vec::vec4(sz * cy, sz * sy * sx + cz * cx, sz * sy * cx - cz * sx, 0.0f);
+            rows[2] = vec::vec4(-sy, cy * sx, cy * cx, 0.0f);
+        }
+
+        static mat4 transformed(vec::vec3 xform)
+        {
+            mat4 m = mat4::identity();
+            m.setPosition(xform);
+            return m;
+        }
+
+        static mat4 transformed(vec::vec3 xform, vec::vec3 eulerAngles)
+        {
+            mat4 m = mat4::identity();
+            m.setRotation(eulerAngles);
+            m.setPosition(xform);
+            return m;
         }
 
         static mat4 identity()

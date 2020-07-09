@@ -2,20 +2,19 @@
 #include <render/buffer.hpp>
 #include <render/camera.hpp>
 #include <render/ray.hpp>
+#include <sdf/op.hpp>
 #include <vec/vec3.hpp>
 #include <vec/vec4.hpp>
 
 namespace render
 {
-    typedef float distanceFunc(vec::vec3 &pos);
-
     class Renderer
     {
     public:
-        distanceFunc *dfunc;
+        sdf::distanceFunc *dfunc;
         float threshold;
 
-        Renderer(distanceFunc *func, float threshold = 0.0001f) : threshold(threshold)
+        Renderer(sdf::distanceFunc *func, float threshold = 0.0001f) : threshold(threshold)
         {
             this->dfunc = func;
         }
