@@ -25,7 +25,7 @@ vec::vec4 render::Renderer::process(render::Ray &ray, float maxDistance)
         totalDistance += d;
         ray.advance(d);
     } while (d > threshold && totalDistance < maxDistance);
-    // Render the normal for anything hit, or black otherwise
-    // return vec::vec4((d < threshold) ? sdf::calcNormal(ray.origin, dfunc) : 0.0f);
-    return vec::vec4(1.0f - totalDistance / maxDistance);
+    // Render the normal (fit between0 and 1) for anything hit, or black otherwise
+    return vec::vec4((d < threshold) ? sdf::calcNormal(ray.origin, dfunc) * 0.5f + 0.5f : 0.0f);
+    // return vec::vec4(1.0f - totalDistance / maxDistance);
 }
