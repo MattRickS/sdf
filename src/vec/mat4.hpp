@@ -93,6 +93,16 @@ namespace vec
     };
 } // namespace vec
 
+inline std::ostream &operator<<(std::ostream &_stream, vec::mat4 const &m)
+{
+    _stream << "( ";
+    for (const float f : m.arr)
+    {
+        _stream << f << ' ';
+    }
+    _stream << ')';
+}
+
 inline vec::vec3 operator*(const vec::mat4 &m, const vec::vec3 v)
 {
     vec::vec4 v4(v, 0.0f);
