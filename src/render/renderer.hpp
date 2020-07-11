@@ -27,6 +27,7 @@ namespace render
 
         // TODO: A vector of SDF functions - must define an interface
         void render(render::Camera &camera, render::Buffer &buffer, float maxDistance, RenderFit fit = RenderFit::KeepRatio);
-        vec::vec4 process(render::Ray &ray, float maxDistance);
+        render::Hit project(render::Ray &ray, float maxDistance);
+        vec::vec4 shade(render::Hit &hit);
     };
 } // namespace render

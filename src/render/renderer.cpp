@@ -25,13 +25,14 @@ void render::Renderer::render(render::Camera &camera, render::Buffer &buffer, fl
             float u = (2 * (x + 0.5f) / buffer.sizeX - 1.0f) * sx;
             float v = (2 * (y + 0.5f) / buffer.sizeY - 1.0f) * sy;
             render::Ray ray = camera.ray(u, v);
-            vec::vec4 colour = process(ray, maxDistance);
+            render::Hit hit = project(ray, maxDistance);
+            vec::vec4 colour = shade(hit);
             buffer.setPixel(x, y, colour);
         }
     }
 }
 
-vec::vec4 render::Renderer::process(render::Ray &ray, float maxDistance)
+render::Hit render::Renderer::project(render::Ray &ray, float maxDistance)
 {
     float d, totalDistance = 0.0;
     do
@@ -40,7 +41,12 @@ vec::vec4 render::Renderer::process(render::Ray &ray, float maxDistance)
         totalDistance += d;
         ray.advance(d);
     } while (d > threshold && totalDistance < maxDistance);
+    return render::Hit(ray, (d < threshold), totalDistance);
+}
+
+vec::vec4 render::Renderer::shade(render::Hit &hit)
+{
+    return vec::vec4(hit.hit ? sdf::calcNormal(hit.ray.origin, dfunc) * 0.5f + 0.5f : 0.0f);
     // Render the normal (fit between0 and 1) for anything hit, or black otherwise
-    return vec::vec4((d < threshold) ? sdf::calcNormal(ray.origin, dfunc) * 0.5f + 0.5f : 0.0f);
     // return vec::vec4(1.0f - totalDistance / maxDistance);
 }
