@@ -53,16 +53,15 @@ vec::vec4 render::Renderer::shade(render::Hit &hit)
 
     // Ambient occlusion
     vec::vec3 normal = gradient(hit.ray.origin) * 0.5f + 0.5f;
-    int steps = 5;
-    float ao, delta = 0.3f, strength = 3.0f;
-    for (int i = 1; i <= steps; i++)
+    float ao{0.0f};
+    for (int i = 1; i <= aoSteps; i++)
     {
-        ao += (i * delta - dfunc(hit.ray.origin + normal * i * delta)) / pow(2, i);
+        ao += (i * aoDelta - dfunc(hit.ray.origin + normal * i * aoDelta)) / pow(2, i);
     }
-    ao /= steps;
+    ao /= aoSteps;
 
-    // return vec::vec4(1.0f - ao);
-    return vec::vec4(normal * (1.0f - ao * strength), 0.0f);
+    // return vec::vec4(1.0f - ao * aoStrength);
+    return vec::vec4(normal * (1.0f - ao * aoStrength), 0.0f);
 }
 
 vec::vec3 render::Renderer::gradient(const vec::vec3 &pos, float offset) // offset = 0.00001

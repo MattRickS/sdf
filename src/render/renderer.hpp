@@ -20,6 +20,9 @@ namespace render
     public:
         distanceFunc *dfunc;
         float threshold;
+        int aoSteps{5};
+        float aoDelta{0.3f};
+        float aoStrength{3.0f};
 
         Renderer(distanceFunc *func, float threshold = 0.0001f) : threshold(threshold)
         {
