@@ -23,6 +23,21 @@ namespace vec
         vec3(float x) : x(x), y(x), z(x) {}
         vec3(float x, float y, float z) : x(x), y(y), z(z) {}
 
+        static vec::vec3 up()
+        {
+            return vec::vec3(0.0f, 1.0f, 0.0f);
+        }
+
+        static vec::vec3 right()
+        {
+            return vec::vec3(1.0f, 0.0f, 0.0f);
+        }
+
+        static vec::vec3 forward()
+        {
+            return vec::vec3(0.0f, 0.0f, 1.0f);
+        }
+
         inline float &operator[](int i)
         {
             return data[i];
@@ -167,6 +182,19 @@ inline vec::vec3 clamp(const vec::vec3 &lhs, const float min_, const float max_)
         std::min(std::max(lhs.x, min_), max_),
         std::min(std::max(lhs.y, min_), max_),
         std::min(std::max(lhs.z, min_), max_));
+}
+
+inline vec::vec3 clamp(const vec::vec3 &lhs, const vec::vec3 &min_, const vec::vec3 &max_)
+{
+    return vec::vec3(
+        std::min(std::max(lhs.x, min_.x), max_.x),
+        std::min(std::max(lhs.y, min_.y), max_.y),
+        std::min(std::max(lhs.z, min_.z), max_.z));
+}
+
+inline vec::vec3 round(const vec::vec3 &lhs)
+{
+    return vec::vec3(std::round(lhs.x), std::round(lhs.y), std::round(lhs.z));
 }
 
 inline vec::vec3 max(const vec::vec3 &lhs, const float rhs)
