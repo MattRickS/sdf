@@ -27,6 +27,6 @@ namespace render
         bool hit;
         float distance;
 
-        Hit(Ray ray, bool hit, float distance) : ray(ray), hit(hit), distance(distance) {}
+        Hit(Ray &ray, bool hit, float distance) : ray(ray), hit(hit), distance(distance) {}
     };
 } // namespace render

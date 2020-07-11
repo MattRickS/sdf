@@ -2,12 +2,13 @@
 #include <render/buffer.hpp>
 #include <render/camera.hpp>
 #include <render/ray.hpp>
-#include <sdf/op.hpp>
 #include <vec/vec3.hpp>
 #include <vec/vec4.hpp>
 
 namespace render
 {
+    typedef float distanceFunc(const vec::vec3 &pos);
+
     enum RenderFit
     {
         KeepRatio,
@@ -17,10 +18,10 @@ namespace render
     class Renderer
     {
     public:
-        sdf::distanceFunc *dfunc;
+        distanceFunc *dfunc;
         float threshold;
 
-        Renderer(sdf::distanceFunc *func, float threshold = 0.0001f) : threshold(threshold)
+        Renderer(distanceFunc *func, float threshold = 0.0001f) : threshold(threshold)
         {
             this->dfunc = func;
         }
@@ -29,5 +30,6 @@ namespace render
         void render(render::Camera &camera, render::Buffer &buffer, float maxDistance, RenderFit fit = RenderFit::KeepRatio);
         render::Hit project(render::Ray &ray, float maxDistance);
         vec::vec4 shade(render::Hit &hit);
+        vec::vec3 gradient(const vec::vec3 &pos, float offset = 0.00001f);
     };
 } // namespace render

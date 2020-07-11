@@ -46,7 +46,33 @@ render::Hit render::Renderer::project(render::Ray &ray, float maxDistance)
 
 vec::vec4 render::Renderer::shade(render::Hit &hit)
 {
-    return vec::vec4(hit.hit ? sdf::calcNormal(hit.ray.origin, dfunc) * 0.5f + 0.5f : 0.0f);
-    // Render the normal (fit between0 and 1) for anything hit, or black otherwise
-    // return vec::vec4(1.0f - totalDistance / maxDistance);
+    if (!hit.hit)
+    {
+        return vec::vec4(0.0f);
+    }
+
+    // Ambient occlusion
+    vec::vec3 normal = gradient(hit.ray.origin) * 0.5f + 0.5f;
+    int steps = 5;
+    float ao, delta = 0.3f, strength = 3.0f;
+    for (int i = 1; i <= steps; i++)
+    {
+        ao += (i * delta - dfunc(hit.ray.origin + normal * i * delta)) / pow(2, i);
+    }
+    ao /= steps;
+
+    // return vec::vec4(1.0f - ao);
+    return vec::vec4(normal * (1.0f - ao * strength), 0.0f);
+}
+
+vec::vec3 render::Renderer::gradient(const vec::vec3 &pos, float offset) // offset = 0.00001
+{
+    static const vec::vec3 k0(1.0f, -1.0f, -1.0f);
+    static const vec::vec3 k1(-1.0f, -1.0f, 1.0f);
+    static const vec::vec3 k2(-1.0f, 1.0f, -1.0f);
+    static const vec::vec3 k3(1.0f, 1.0f, 1.0f);
+    return normalize(k0 * dfunc(pos + k0 * offset) +
+                     k1 * dfunc(pos + k1 * offset) +
+                     k2 * dfunc(pos + k2 * offset) +
+                     k3 * dfunc(pos + k3 * offset));
 }
